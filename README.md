@@ -40,17 +40,17 @@ Path Parameters:
 recipient_id (int): The ID of the recipient to delete.
 Response: {"Message": "Recipient deleted successfully"} or {"Error": "Recipient ID does not exist"} if the recipient ID does not exist.
 
-*Models*
-*Recipient*
 
-# - name (str): The name of the recipient.
-# - age (int): The age of the recipient.
-# - id (int): The ID of the recipient.
+# *Models*
+*Recipient*
+- name (str): The name of the recipient.
+- age (int): The age of the recipient.
+- id (int): The ID of the recipient.
 
 *UpdateRecipient*
-# - name (str, optional): The updated name of the recipient.
-# - age (int, optional): The updated age of the recipient.
-# - id (int, optional): The updated ID of the recipient.
+- name (str, optional): The updated name of the recipient.
+- age (int, optional): The updated age of the recipient.
+- id (int, optional): The updated ID of the recipient.
 
 *Running the Application*
 Install the required dependencies:
