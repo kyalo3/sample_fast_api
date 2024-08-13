@@ -28,11 +28,13 @@ class Recipient(BaseModel):
     name: str
     age: int
     id: int
+    location: str
 
 class UpdateRecipient(BaseModel):
     name: Optional[str] = None
     age: Optional[int] = None
     id: Optional[int] = None
+    location: Optional[str] = None
 
 
 @app.get("/")
@@ -52,7 +54,7 @@ def get_recipient(recipient_id: int = Path(..., description="The ID of the recip
 
 
 @app.get("/get-by-name")
-def get_recipient(*, recipient_id: int, name: Optional[str] = None, test: int):
+async def get_recipient(*, recipient_id: int, name: Optional[str] = None, test: int):
     for recipient_id in recipients:
         if recipients[recipient_id]["name"] == name:
             return recipients[recipient_id]
@@ -63,7 +65,7 @@ def get_recipient(*, recipient_id: int, name: Optional[str] = None, test: int):
 
 
 @app.post("/create-recipient/{recipient_id}")
-def create_recipient(recipient_id: int, recipient: Recipient):
+async def create_recipient(recipient_id: int, recipient: Recipient):
     if recipient_id in recipients:
         return {"Error": "Recipient ID already exists"}
     recipients[recipient_id] = recipient
@@ -71,7 +73,7 @@ def create_recipient(recipient_id: int, recipient: Recipient):
 
 
 @app.put("/update-recipient/{recipient_id}")
-def update_recipient(recipient_id: int, recipient: Recipient):
+async def update_recipient(recipient_id: int, recipient: UpdateRecipient):
     if recipient_id not in recipients:
         return {"Error": "Recipient ID does not exist"}
 
@@ -89,7 +91,7 @@ def update_recipient(recipient_id: int, recipient: Recipient):
 
 
 @app.delete("/delete-recipient/{recipient_id}")
-def delete_recipient(recipient_id: int):
+async def delete_recipient(recipient_id: int):
     if recipient_id not in recipients:
         return {"Error": "Recipient ID does not exist"}
     del recipients[recipient_id]
